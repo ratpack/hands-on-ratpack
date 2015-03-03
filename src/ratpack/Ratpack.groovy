@@ -1,18 +1,12 @@
-import ratpack.groovy.template.TextTemplateModule
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
-import static ratpack.groovy.Groovy.groovyTemplate
 import static ratpack.groovy.Groovy.ratpack
 
-ratpack {
-  bindings {
-    add TextTemplateModule
-  }
+final Logger log = LoggerFactory.getLogger(Ratpack);
 
+ratpack {
   handlers {
-    get {
-      render groovyTemplate("index.html", title: "My Ratpack App")
-    }
-        
-    assets "public"
+
   }
 }
