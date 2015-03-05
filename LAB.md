@@ -2,7 +2,7 @@
 
 By the end of this lab you will be a handler ninja!
 
-Simply make all the feature methods in `HandlersSpec` pass.
+Simply make all the feature methods in `HandlersSpec` pass by adding the right handlers to `Ratpack.groovy`.
 Try to make each feature method pass in order and refactor as you go.
 
 This lab covers:
