@@ -1,7 +1,6 @@
 import groovy.io.GroovyPrintStream
 import org.slf4j.LoggerFactory
 import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
-import ratpack.handling.RequestId
 import ratpack.http.client.RequestSpec
 import ratpack.test.ApplicationUnderTest
 import ratpack.test.http.TestHttpClient
@@ -10,35 +9,63 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 class HandlerSpec extends Specification {
-  @Shared ApplicationUnderTest aut = new GroovyRatpackMainApplicationUnderTest()
-  @Delegate TestHttpClient client = aut.httpClient
+  // Start our application and make it available for testing. `@Shared` means the same app instance will be used for _all_ tests
+  @Shared ApplicationUnderTest appUnderTest = new GroovyRatpackMainApplicationUnderTest()
 
-  def "01 - can send to root path"() {
-    expect:
-    getText() == "Hello Greach!"
+  // ApplicationUnderTest includes a TestHttpClient that we can use for sending requests to our application.
+  @Delegate TestHttpClient testClient = appUnderTest.httpClient
+
+  def "01 - can send a requests with different Http methods to the root path"() {
+    when: "a GET request is sent with no path"
+    testClient.get() // we don't have to assign the ReceivedResponse returned as TestHttpClient will keep track of this for us
+
+    then: "a response is returned with body text of 'Hello Greach!'"
+    testClient.response.body.text == "Hello Greach!" // `testClient.response` is the ReceivedResponse from the last request sent
+
+    when: "a POST request is sent with no path"
+    testClient.post()
+
+    then: "a response is returned with body text of 'Hello Greach!'"
+    testClient.response.body.text == "Hello Greach!"
+
+    /*
+    Hint:
+    Take a look at `ratpack.groovy.handling.GroovyChain#handler(handler)`
+    */
   }
 
-  def "02 - can send GET to path 'user'"() {
-    expect:
-    getText("user") == "user"
-  }
+  def "02 - can send a GET request to the path '/user'"() {
+    when: "a GET request is sent to the path '/user'"
+    get("user") // Using `@Delegate` on the testClient property means we don't have to keep doing `testClient.get()`
 
-  def "03 - can send PUT to path 'foo'"() {
-    expect:
-    put("user").statusCode == 405
+    then: "a response is returned with body text of 'user'"
+    response.body.text == "user" // Taking advantage of `@Delegate` here too
+
+    /*
+    Hint:
+    Take a look at `ratpack.groovy.handling.GroovyChain#get(path, handler)`
+    A plain `Handler` with no path will match on everything
+    */
   }
 
   @Unroll
-  def "04 - can send GET to path 'user/#username'"() {
+  def "03 - can send a GET request to the path '/user/#username'"() {
     expect:
-    getText("user/$username") == "user/$username"
+    getText("user/$username") == "user/$username" // Using `getText()` we can roll 2 method calls into 1
 
     where:
     username << ["dave", "fred"]
+
+    /*
+    Hint:
+    Take a look at `ratpack.handling.Chain` class level Javadoc
+    and `ratpack.handling.Context#getPathTokens()`
+    and `ratpack.path.PathBinding#getTokens()`
+    */
   }
 
   @Unroll
-  def "05 - can send GET to path 'user/#username/tweets'"() {
+  def "04 - can send a GET request to the path '/user/#username/tweets'"() {
     expect:
     getText("user/$username/tweets") == "user/$username/tweets"
 
@@ -47,44 +74,42 @@ class HandlerSpec extends Specification {
   }
 
   @Unroll
-  def "06 - can send GET to path 'user/#username/friends'"() {
+  def "05 - can send a GET request to the path '/user/#username/friends'"() {
     expect:
     getText("user/$username/friends") == "user/$username/friends"
 
     where:
     username << ["dave", "fred"]
+
+    /*
+    Hint:
+    If you haven't already, you might want to start refactoring
+    Take a look at `ratpack.handling.Chain#prefix(prefix, action)`
+    and `ratpack.handling.Context#getAllPathTokens()`
+    and `ratpack.path.PathBinding#getAllTokens()`
+    */
+  }
+
+  def "06 - can send a POST request to the path '/user'"() {
+    expect:
+    postText("user") == "user"
+
+    /*
+    Hint:
+    Take a look at `ratpack.groovy.handling.GroovyContext#byMethod(closure)`
+    */
+  }
+
+  def "07 - can not send a PUT request to the path '/user'"() {
+    expect:
+    put("user").statusCode == 405
   }
 
   @Unroll
-  def "07 - can send POST with soap action of #soapAction"() {
-    given:
-    requestSpec { RequestSpec req ->
-      req.headers.set("SOAPAction", soapAction)
-    }
-
-    expect:
-    postText("api/ws") == soapAction
-
-    where:
-    soapAction << ["getTweets", "getFriends"]
-  }
-
-  def "08 - can log all requests"() {
+  def "08 - can log a warning when there is a request for a user starting with 'f'"() {
+    // Configure the logger with our own output stream so we can get a handle on the log content
     def loggerOutput = new ByteArrayOutputStream()
-    def logger = LoggerFactory.getLogger(RequestId)
-    logger.TARGET_STREAM = new GroovyPrintStream(loggerOutput)
-
-    given:
-    get("user")
-
-    expect:
-    loggerOutput.toString().contains("GET /user 200 id=")
-  }
-
-  @Unroll
-  def "09 - can log warning for user starting with 'f': #username"() {
-    def loggerOutput = new ByteArrayOutputStream()
-    def logger = LoggerFactory.getLogger(RequestId)
+    def logger = LoggerFactory.getLogger(HandlerSpec)
     logger.TARGET_STREAM = new GroovyPrintStream(loggerOutput)
 
     given:
@@ -95,10 +120,57 @@ class HandlerSpec extends Specification {
 
     where:
     username << ["florence", "fred"]
+
+    /*
+    Hint:
+    Handlers that don't generate a response must delegate to the next handler
+    Take a look at `ratpack.handling.Context#next()`
+
+    Path route matching with a regular expression might help here
+    Take a look at `ratpack.handling.Chain` class level Javadoc
+    */
   }
 
-  def "10 - can send POST to path 'user'"() {
+  def "09 - can log all requests"() {
+    // Configure the logger with our own output stream so we can get a handle on the log content
+    def loggerOutput = new ByteArrayOutputStream()
+    def logger = LoggerFactory.getLogger(HandlerSpec)
+    logger.TARGET_STREAM = new GroovyPrintStream(loggerOutput)
+
+    given:
+    get(requestPath)
+
     expect:
-    postText("user") == "user"
+    loggerOutput.toString().contains(expectedLogEntry)
+
+    where:
+    requestPath   | expectedLogEntry
+    "user"        | "GET /user 200 id="
+    "user/1"      | "GET /user/1 200 id="
+
+    /*
+    Hint:
+    You'll need a handler that gets called for _all_ requests regardless of their Http method or path
+    */
+  }
+
+  @Unroll
+  def "10 - can send a POST request with a soap action of #soapAction"() {
+    given:
+    // Using TestHttpClient.requestSpec we can configure details of this request like adding headers and setting the body
+    requestSpec { RequestSpec req ->
+      req.headers.set("SOAPAction", soapAction)
+    }
+
+    expect:
+    postText("api/ws") == "api/ws - $soapAction"
+
+    where:
+    soapAction << ["getTweets", "getFriends"]
+
+    /*
+    Hint:
+    You're all out of hints :)
+    */
   }
 }

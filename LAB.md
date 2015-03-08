@@ -15,15 +15,21 @@ This lab covers:
 * Using path tokens
 
 ## Sign Posts
+`ratpack.handling.Chain`
+
+`ratpack.handling.Context`
+
 `ratpack.groovy.handling.GroovyChain`
 
 `ratpack.groovy.handling.GroovyContext`
 
-`ratpack.handling.Context`
+`ratpack.path.PathBinding`
 
 
-`ratpack.path.PathRoutingSpec`
+http://www.ratpack.io/manual/current/handlers.html#handlers
 
-`ratpack.path.PathAndMethodRoutingSpec`
+https://github.com/ratpack/ratpack/blob/master/ratpack-core/src/test/groovy/ratpack/path/PathRoutingSpec.groovy
 
-`ratpack.handling.RequestIdSpec`
+https://github.com/ratpack/ratpack/blob/master/ratpack-core/src/test/groovy/ratpack/path/PathAndMethodRoutingSpec.groovy
+
+https://github.com/ratpack/ratpack/blob/master/ratpack-core/src/test/groovy/ratpack/path/internal/TokenPathBinderSpec.groovy
