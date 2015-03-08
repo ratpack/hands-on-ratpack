@@ -12,7 +12,7 @@ ratpack {
     handler(RequestId.bindAndLog()) // log all requests
 
     prefix("user") {
-      handler("::f+.*") { // starts with 'f' then 1 or more characters
+      handler("::f.*") { // starts with 'f' then 0 or more characters
         def binding = get(PathBinding)
         def username = binding.boundTo.indexOf('/') < 0 ?
             binding.boundTo :
@@ -50,11 +50,11 @@ ratpack {
 
     prefix("api/ws") { // if the prefix is removed, the tests still pass.  Must be careful that handlers further up the chain don't also match
       header("SOAPAction", "getTweets") {
-        render "getTweets"
+        render "${get(PathBinding).boundTo} - getTweets"
       }
 
       header("SOAPAction", "getFriends") {
-        render "getFriends"
+        render "${get(PathBinding).boundTo} - getFriends"
       }
     }
 
