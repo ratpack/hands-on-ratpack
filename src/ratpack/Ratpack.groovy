@@ -24,15 +24,15 @@ ratpack {
 
       prefix(":username") {
         get {
-          render "user/${allPathTokens.get('username')}" // had to use `allPathTokens`
+          response.send "user/$allPathTokens['username']" // had to use `allPathTokens`
         }
 
         get("tweets") {
-          render "user/${allPathTokens.get('username')}/tweets"
+          response.send "user/$allPathTokens['username']/tweets"
         }
 
         get("friends") {
-          render "user/${allPathTokens.get('username')}/friends"
+          response.send "user/$allPathTokens['username']/friends"
         }
       }
 
@@ -50,11 +50,11 @@ ratpack {
 
     prefix("api/ws") { // if the prefix is removed, the tests still pass.  Must be careful that handlers further up the chain don't also match
       header("SOAPAction", "getTweets") {
-        render "${get(PathBinding).boundTo} - getTweets"
+        response.send "${get(PathBinding).boundTo} - getTweets"
       }
 
       header("SOAPAction", "getFriends") {
-        render "${get(PathBinding).boundTo} - getFriends"
+        response.send "${get(PathBinding).boundTo} - getFriends"
       }
     }
 
