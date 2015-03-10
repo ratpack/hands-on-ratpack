@@ -5,13 +5,19 @@ import spock.lang.Unroll
 class UserEndpointUnitSpec extends Specification {
 
   @Unroll
-  def "can send #requestHttpMethod request to #requestUri"() {
-    expect:
-    def result = GroovyRequestFixture.handle(new UserEndpoint()) {
+  def "can send a #requestHttpMethod request to #requestUri"() {
+    given:
+    def endpointUnderTest = new UserEndpoint()
+
+    when:
+    // Using GroovyRequestFixture we can test the chain in isolation with different http methods, headers, uri's and more
+    def result = GroovyRequestFixture.handle(endpointUnderTest) {
       method requestHttpMethod
       uri requestUri
     }
 
+    then:
+    result.sentResponse
     result.bodyText == expectedResponse
 
     where:
@@ -24,6 +30,14 @@ class UserEndpointUnitSpec extends Specification {
     "/fred/tweets"  | "get"               | "user/fred/tweets"
     "/dave/friends" | "get"               | "user/dave/friends"
     "fred/friends"  | "get"               | "user/fred/friends"
+
+    /*
+    Hint:
+    Take a look at `ratpack.groovy.handling.GroovyChain#prefix(prefix, action)`
+    Look at using `ratpack.groovy.Groovy#chain(chain, closure)` within your new endpoint class
+
+    Don't forget to update Ratpack.groovy with your new handler and check HandlerSpec still passes
+    */
   }
 
 }
