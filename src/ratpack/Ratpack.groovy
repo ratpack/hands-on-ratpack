@@ -24,15 +24,15 @@ ratpack {
 
       prefix(":username") {
         get {
-          response.send "user/$allPathTokens['username']" // had to use `allPathTokens`
+          response.send "user/${allPathTokens['username']}" // had to use `allPathTokens`
         }
 
         get("tweets") {
-          response.send "user/$allPathTokens['username']/tweets"
+          response.send "user/${allPathTokens['username']}/tweets"
         }
 
         get("friends") {
-          response.send "user/$allPathTokens['username']/friends"
+          response.send "user/${allPathTokens['username']}/friends"
         }
       }
 
