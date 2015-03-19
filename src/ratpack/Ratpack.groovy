@@ -1,13 +1,9 @@
-import ratpack.registry.RegistrySpec
-
 import static ratpack.groovy.Groovy.ratpack
+import static ratpack.registry.Registries.just
 
 ratpack {
   handlers {
-    // For this use case there are better options than this.  We will see in future labs
-    register { RegistrySpec spec ->
-      spec.add(DefaultPersonService.instance)
-    }
+    register just(DefaultPersonService.instance)
 
     prefix("person/:id") {
       get("name") {
