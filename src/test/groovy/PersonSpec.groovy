@@ -17,4 +17,9 @@ class PersonSpec extends Specification {
     expect:
     getText("person/1/status") == "new"
   }
+
+  def "03 - can return 404 for Person not found"() {
+    expect:
+    get("person/2/status").status.code == 404
+  }
 }
