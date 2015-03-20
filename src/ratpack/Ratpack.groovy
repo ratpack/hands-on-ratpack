@@ -2,15 +2,22 @@ import static ratpack.groovy.Groovy.ratpack
 import static ratpack.registry.Registries.just
 
 ratpack {
-  handlers {
-    register just(DefaultPersonService.instance)
+  bindings {
+    bind PersonRepository, DefaultPersonRepository
+    bind PersonService, DefaultPersonService
+  }
 
+  handlers {
     prefix("person/:id") {
       handler { PersonService personService ->
         long id = allPathTokens.asLong("id")
         Person p = personService.getPerson(id)
 
-        next(just(p))
+        if (p == null) {
+          response.status(404).send()
+        } else {
+          next(just(p))
+        }
       }
 
       get("name") {
