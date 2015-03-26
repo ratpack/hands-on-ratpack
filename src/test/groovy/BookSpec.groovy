@@ -4,22 +4,17 @@ import ratpack.test.http.TestHttpClient
 import spock.lang.Shared
 import spock.lang.Specification
 
-class PersonSpec extends Specification {
+class BookSpec extends Specification {
   @Shared ApplicationUnderTest appUnderTest = new GroovyRatpackMainApplicationUnderTest()
   @Delegate TestHttpClient testClient = appUnderTest.httpClient
 
-  def "01 - can get a person's name"() {
+  def "01 - can get a book's title"() {
     expect:
-    getText("person/1/name") == "Frank Sinatra"
+    getText("book/1/title") == "Ratpack Web Framework"
   }
 
-  def "02 - can get a person's status"() {
+  def "02 - can get a book's author"() {
     expect:
-    getText("person/1/status") == "new"
-  }
-
-  def "03 - can return 404 for Person not found"() {
-    expect:
-    get("person/2/status").status.code == 404
+    getText("book/1/author") == "Dan Woods"
   }
 }
