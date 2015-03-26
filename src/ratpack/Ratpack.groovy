@@ -1,28 +1,40 @@
 import static ratpack.groovy.Groovy.ratpack
-import static ratpack.registry.Registries.just
 
 ratpack {
   handlers {
-    register just(DefaultPersonService.instance)
+    /*
+    * TODO register DefaultBookService as the implementation of BookService in the registry
+    *
+    * Take a look at:
+    * `ratpack.groovy.handling.GroovyChain#register(registry)`
+    * `ratpack.registry.Registries#just(object)`
+    */
 
-    prefix("person/:id") {
-      get("name") {
+    prefix("book/:isbn") {
+      /*
+      * TODO add your new common handler here
+      *
+      * Take a look at:
+      * `ratpack.handling.Context#next(registry)`
+      */
+
+      get("title") {
         // Objects added to the registry by upstream handlers are available via type-lookup
-        PersonService personService = context.get(PersonService)
+        BookService bookService = context.get(BookService)
 
         //TODO refactor this into a common handler for this chain
-        long id = allPathTokens.asLong("id")
-        Person p = personService.getPerson(id)
+        long isbn = allPathTokens.asLong("isbn")
+        Book b = bookService.getBook(isbn)
 
-        response.send p.name
+        response.send b.title
       }
 
-      get("status") { PersonService personService -> // Registry objects can also be "injected" into handler closures
+      get("author") { BookService bookService -> // Registry objects can also be "injected" into handler closures
         //TODO refactor this into a common handler for this chain
-        long id = allPathTokens.asLong("id")
-        Person p = personService.getPerson(id)
+        long isbn = allPathTokens.asLong("isbn")
+        Book b = bookService.getBook(isbn)
 
-        response.send p.status
+        response.send b.author
       }
     }
   }
