@@ -17,9 +17,4 @@ class BookSpec extends Specification {
     expect:
     getText("book/1/author") == "Dan Woods"
   }
-
-  def "03 - can return 404 for Person not found"() {
-    expect:
-    get("person/2/status").status.code == 404
-  }
 }

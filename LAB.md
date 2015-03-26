@@ -1,29 +1,25 @@
-# Lab 03 - Context lab
+# Lab 04 - Google Guice (part 1) lab
 
-The `Context` is at the core of request processing in Ratpack applications.
+Ratpack provides integration with Google Guice for dependancy injection.  We'll see other DI integrations in future labs
+but the Guice one is of particular importance as additional Ratpack functionality is packaged up as Guice modules.
 
-It provides access to the HTTP Request and Response, allows flow control and has convenience methods for common handler operations.
-More than that though, the Context is also a `Registry` of objects.  It provides access to these contextual objects via type-lookup
-and allows arbitrary objects to be "pushed" into the context for use by downstream handlers.
+One key concept to understand about the Guice integration is that it provides a Guice backed `Registry`.  This means that
+any objects bound with Guice are available in the `Context`.  As Handlers and other Ratpack infrastructure use the Context
+to look up objects it means we are completely decoupled from any one DI implementation and can even use multiple implementations.
 
 To complete this lab:
 
-1. Register `DefaultBookService` as the implementation of `BookService` to the context so it is available to all downstream handlers.
-1. Simply refactor the common logic of the two handlers in `Ratpack.groovy` into a new handler.  And make theresulting object available
-to the now downstream handlers using the context to do so.
+1. Bind `DefaultBookService` as the implementation of `BookService` to Guice.
+1. Bind `DefaultBookRepository` as the implementation of `BookRepository` (which is injected into DefaultBookService) to
+Guice.
 1. Make sure `BookSpec` passes.
 
 This time the hints are in the TODO within `Ratpack.groovy`
 
 This lab covers:
 
-* Registering objects in the registry
-* Dynamically adding contextual objects
-* Looking up contextual objects from the registry
-* Injecting contextual objects into handlers
+* Binding objects with Google Guice
 
 ## Sign Posts
 
-`ratpack.handling.Context`
-
-`ratpack.registry.Registries`
+`ratpack.guice.BindingsSpec`

@@ -1,8 +1,16 @@
-@Singleton
+import javax.inject.Inject
+
 class DefaultBookService implements BookService {
+
+  private BookRepository repository
+
+  @Inject
+  public DefaultBookService(BookRepository bookRepository) {
+    this.repository = bookRepository
+  }
+
   @Override
   Book getBook(long isbn) {
-    return new Book(isbn: isbn, quantity: 10, price: 15.99, title: "Ratpack Web Framework",
-        author: "Dan Woods", publisher: "O'Reilly")
+    return repository.getBook(isbn)
   }
 }
