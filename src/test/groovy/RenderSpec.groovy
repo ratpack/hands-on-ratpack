@@ -29,21 +29,24 @@ class RenderSpec extends Specification {
     */
   }
 
-  def "03 - can render a Person as Json"() {
+  def "03 - can render a Book as Json"() {
     given:
     requestSpec { req ->
       req.body.type("application/json")
     }
 
     when:
-    get("api/person/1")
+    get("api/book/1")
 
     then:
-    def person = new JsonSlurper().parseText(response.body.text)
-    with(person) {
-      id == 1
-      name == "Frank Sinatra"
-      status == "new"
+    def book = new JsonSlurper().parseText(response.body.text)
+    with(book) {
+      isbn == 1
+      quantity == 10
+      price == 15.99
+      title == "Ratpack Web Framework"
+      author == "Dan Woods"
+      publisher == "O'Reilly"
     }
 
     and:
@@ -57,21 +60,24 @@ class RenderSpec extends Specification {
     */
   }
 
-  def "04 - can render a Person as Xml"() {
+  def "04 - can render a Book as Xml"() {
     given:
     requestSpec { req ->
       req.headers.set("Accept", "application/xml")
     }
 
     when:
-    get("api/person/1")
+    get("api/book/1")
 
     then:
-    def person = new XmlSlurper().parseText(response.body.text)
-    with(person) {
-      id == 1
-      name == "Frank Sinatra"
-      status == "new"
+    def book = new XmlSlurper().parseText(response.body.text)
+    with(book) {
+      isbn == 1
+      quantity == 10
+      price == 15.99
+      title == "Ratpack Web Framework"
+      author == "Dan Woods"
+      publisher == "O'Reilly"
     }
 
     and:
