@@ -7,7 +7,7 @@ ratpack {
 
     prefix("book/:isbn") {
       handler { BookService bookService ->
-        long isbn = allPathTokens.asLong("isbn")
+        String isbn = allPathTokens["isbn"]
         Book b = bookService.getBook(isbn)
 
         next(just(b))
