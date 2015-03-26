@@ -10,7 +10,7 @@ class DefaultBookService implements BookService {
   }
 
   @Override
-  Book getBook(long isbn) {
+  Book getBook(String isbn) {
     return repository.getBook(isbn)
   }
 }
