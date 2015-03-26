@@ -4,19 +4,22 @@ import ratpack.jackson.Jackson
 
 import static ratpack.groovy.Groovy.markupBuilder
 
-class BookRenderer extends GroovyRendererSupport<Person> {
+class BookRenderer extends GroovyRendererSupport<Book> {
   @Override
-  void render(GroovyContext context, Person object) throws Exception {
+  void render(GroovyContext context, Book book) throws Exception {
     context.byContent {
       json {
-        render Jackson.json(object)
+        render Jackson.json(book)
       }
       xml {
         context.render markupBuilder("application/xml", "UTF-8") {
           person {
-            status object.status
-            name object.name
-            id object.id
+            isbn book.isbn
+            quantity book.quantity
+            price book.price
+            title book.title
+            author book.author
+            publisher book.publisher
           }
         }
       }
