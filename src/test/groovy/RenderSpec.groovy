@@ -41,7 +41,7 @@ class RenderSpec extends Specification {
     then:
     def book = new JsonSlurper().parseText(response.body.text)
     with(book) {
-      isbn == 1
+      isbn == "1"
       quantity == 10
       price == 15.99
       title == "Ratpack Web Framework"
