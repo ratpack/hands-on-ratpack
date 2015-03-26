@@ -1,25 +1,22 @@
-# Lab 04 - Google Guice (part 1) lab
+# Lab 05 - Render lab
 
-Ratpack provides integration with Google Guice for dependancy injection.  We'll see other DI integrations in future labs
-but the Guice one is of particular importance as additional Ratpack functionality is packaged up as Guice modules.
+So far we have only used `response.send` to respond to requests.  Ratpack also has the concept of `Renderer` which we will
+explore in this lab.
 
-One key concept to understand about the Guice integration is that it provides a Guice backed `Registry`.  This means that
-any objects bound with Guice are available in the `Context`.  As Handlers and other Ratpack infrastructure use the Context
-to look up objects it means we are completely decoupled from any one DI implementation and can even use multiple implementations.
+Ratpack provides many renderers out-of-the-box but you can also create your own renderers for custom objects.
 
-To complete this lab:
-
-1. Bind `DefaultBookService` as the implementation of `BookService` to Guice.
-1. Bind `DefaultBookRepository` as the implementation of `BookRepository` (which is injected into DefaultBookService) to
-Guice.
-1. Make sure `BookSpec` passes.
-
-This time the hints are in the TODO within `Ratpack.groovy`
+To complete this lab simply make all the feature methods in `RenderSpec` pass by using one of Ratpack's renderers, creating
+one of your own, or maybe a combination of both.  Renderers are typically not used directly. Instead, they are used via by
+`Context#render(Object)`.
 
 This lab covers:
 
-* Binding objects with Google Guice
+* Rendering String
+* Rendering Groovy Markup Template
+* Rendering a custom object with a different content type depending on what has been requested
 
 ## Sign Posts
 
-`ratpack.guice.BindingsSpec`
+`ratpack.render.Renderer`
+
+`ratpack.jackson.JacksonModule`
