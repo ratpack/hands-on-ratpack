@@ -58,6 +58,12 @@ ratpack {
       }
     }
 
+    prefix("assets") {
+      assets("public")
+    }
+
+    assets("pages", "index.html")
+
     handler {
       response.send "Hello Greach!"
     }
