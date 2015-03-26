@@ -3,22 +3,22 @@ import static ratpack.registry.Registries.just
 
 ratpack {
   handlers {
-    register just(DefaultPersonService.instance)
+    register just(DefaultBookService.instance)
 
-    prefix("person/:id") {
-      handler { PersonService personService ->
-        long id = allPathTokens.asLong("id")
-        Person p = personService.getPerson(id)
+    prefix("book/:isbn") {
+      handler { BookService bookService ->
+        long isbn = allPathTokens.asLong("isbn")
+        Book b = bookService.getBook(isbn)
 
-        next(just(p))
+        next(just(b))
       }
 
-      get("name") {
-        response.send context.get(Person).name
+      get("title") {
+        response.send context.get(Book).title
       }
 
-      get("status") { Person p ->
-        response.send p.status
+      get("author") { Book b ->
+        response.send b.author
       }
     }
   }
