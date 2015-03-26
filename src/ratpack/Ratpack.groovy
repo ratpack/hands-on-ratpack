@@ -23,7 +23,7 @@ ratpack {
         BookService bookService = context.get(BookService)
 
         //TODO refactor this into a common handler for this chain
-        long isbn = allPathTokens.asLong("isbn")
+        String isbn = allPathTokens["isbn"]
         Book b = bookService.getBook(isbn)
 
         response.send b.title
@@ -31,7 +31,7 @@ ratpack {
 
       get("author") { BookService bookService -> // Registry objects can also be "injected" into handler closures
         //TODO refactor this into a common handler for this chain
-        long isbn = allPathTokens.asLong("isbn")
+        String isbn = allPathTokens["isbn"]
         Book b = bookService.getBook(isbn)
 
         response.send b.author
