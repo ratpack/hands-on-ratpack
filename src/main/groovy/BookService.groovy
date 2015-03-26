@@ -1,3 +1,3 @@
 interface BookService {
-  Book getBook(long isbn)
+  Book getBook(String isbn)
 }
