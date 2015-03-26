@@ -22,12 +22,6 @@ class HandlerSpec extends Specification {
     then: "a response is returned with body text of 'Hello Greach!'"
     testClient.response.body.text == "Hello Greach!" // `testClient.response` is the ReceivedResponse from the last request sent
 
-    when: "a POST request is sent with no path"
-    testClient.post()
-
-    then: "a response is returned with body text of 'Hello Greach!'"
-    testClient.response.body.text == "Hello Greach!"
-
     /*
     Hint:
     Take a look at `ratpack.groovy.handling.GroovyChain#handler(handler)`
@@ -105,8 +99,29 @@ class HandlerSpec extends Specification {
     put("user").statusCode == 405
   }
 
+  def "08 - can request a static asset"() {
+    expect:
+    getText("assets/js/app.js") == "var message = 'Hello Greach!';"
+
+    /*
+    Hint:
+    There is already a file available to serve src/ratpack/public/js/app.js
+    Take a look at `ratpack.handling.Chain#assets(path, indexFiles)`
+    */
+  }
+
+  def "09 - can serve an index file"() {
+    expect:
+    getText("home") == "<html><body><p>Hello Greach!</p></body></html>"
+
+    /*
+    Hint:
+    There is already an index file available to serve src/ratpack/pages/home/index.html
+    */
+  }
+
   @Unroll
-  def "08 - can log a warning when there is a request for a user starting with 'f'"() {
+  def "10 - can log a warning when there is a request for a user starting with 'f'"() {
     // Configure the logger with our own output stream so we can get a handle on the log content
     def loggerOutput = new ByteArrayOutputStream()
     def logger = LoggerFactory.getLogger(HandlerSpec)
@@ -131,7 +146,7 @@ class HandlerSpec extends Specification {
     */
   }
 
-  def "09 - can log all requests"() {
+  def "11 - can log all requests"() {
     // Configure the logger with our own output stream so we can get a handle on the log content
     def loggerOutput = new ByteArrayOutputStream()
     def logger = LoggerFactory.getLogger(HandlerSpec)
@@ -155,7 +170,7 @@ class HandlerSpec extends Specification {
   }
 
   @Unroll
-  def "10 - can send a POST request with a soap action of #soapAction"() {
+  def "12 - can send a POST request with a soap action of #soapAction"() {
     given:
     // Using TestHttpClient.requestSpec we can configure details of this request like adding headers and setting the body
     requestSpec { RequestSpec req ->
