@@ -26,10 +26,11 @@ class SoapActionHandlerUnitSpec extends Specification {
 
     /*
     Hint:
+    You will need to create `SoapActionHandler` in src/main/groovy
     Take a look at `ratpack.http.internal.HeaderHandler` and `ratpack.groovy.handling.internal.DefaultGroovyChain#header(headerName, headerValue, handler)`
     Try creating a `ratpack.groovy.handling.GroovyHandler` or extending `ratpack.http.internal.HeaderHandler`
 
-    Don't forget to update Ratpack.groovy with your new handler and check HandlerSpec still passes
+    Don't forget to update Ratpack.groovy with your new handler and check `HandlerSpec` still passes
     */
   }
 
