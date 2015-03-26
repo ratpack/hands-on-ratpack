@@ -1,5 +1,6 @@
 # Lab 01 - Handler lab
 
+Handlers are the fundamental component of any Ratpack application.
 By the end of this lab you will be a handler ninja!
 
 Simply make all the feature methods in `HandlersSpec` pass by adding the right handlers to `Ratpack.groovy`.
