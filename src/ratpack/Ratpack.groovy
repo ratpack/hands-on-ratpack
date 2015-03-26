@@ -3,29 +3,25 @@ import static ratpack.registry.Registries.just
 
 ratpack {
   bindings {
-    bind PersonRepository, DefaultPersonRepository
-    bind PersonService, DefaultPersonService
+    bind BookRepository, DefaultBookRepository
+    bind BookService, DefaultBookService
   }
 
   handlers {
-    prefix("person/:id") {
-      handler { PersonService personService ->
-        long id = allPathTokens.asLong("id")
-        Person p = personService.getPerson(id)
+    prefix("book/:isbn") {
+      handler { BookService bookService ->
+        long isbn = allPathTokens.asLong("isbn")
+        Book b = bookService.getBook(isbn)
 
-        if (p == null) {
-          response.status(404).send()
-        } else {
-          next(just(p))
-        }
+        next(just(b))
       }
 
-      get("name") {
-        response.send context.get(Person).name
+      get("title") { Book b ->
+        response.send b.title
       }
 
-      get("status") { Person p ->
-        response.send p.status
+      get("author") { Book b ->
+        response.send b.author
       }
     }
   }
