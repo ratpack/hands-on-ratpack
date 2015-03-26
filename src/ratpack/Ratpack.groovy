@@ -23,7 +23,7 @@ ratpack {
     }
 
     get("api/book/:isbn") { BookService bookService ->
-      long isbn = allPathTokens.asLong("isbn")
+      String isbn = pathTokens["isbn"]
       render bookService.getBook(isbn)
     }
   }
