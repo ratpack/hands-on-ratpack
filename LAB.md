@@ -9,7 +9,7 @@ To complete this lab simply make all the feature methods in `RenderSpec` pass by
 one of your own, or maybe a combination of both.  Renderers are typically not used directly. Instead, they are used via by
 `Context#render(Object)`.
 
-This lab covers:
+## This lab covers
 
 * Rendering String
 * Rendering Groovy Markup Template

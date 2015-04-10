@@ -16,6 +16,7 @@ class RenderSpec extends Specification {
     /*
     Hint:
     Take a look at `ratpack.handling.Context#render(object)`
+    Ratpack already has a renderer for String
     */
   }
 
@@ -26,6 +27,7 @@ class RenderSpec extends Specification {
     /*
     Hint:
     Take a look at `ratpack.groovy.template.MarkupTemplateModule`
+    A markup template is already provided in `src/ratpack/templates`
     */
   }
 
@@ -54,9 +56,11 @@ class RenderSpec extends Specification {
 
     /*
     Hint:
-    Take a look at `ratpack.groovy.render.GroovyRendererSupport`
+    Take a look at `ratpack.groovy.render.GroovyRendererSupport` to create your own renderer for `Book`
+    Renderers are looked up in the Context by type, you will need to make your new renderer available.
 
-    The Jackson module (`ratpack.jackson.Jackson`) has a support for rendering as JSON
+    Ratpack's Jackson module (`ratpack.jackson.Jackson`) has a support for rendering as JSON
+    To use this in your renderer you will need to add a new build dependency on `ratpack-jackson`
     */
   }
 
