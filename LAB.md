@@ -12,7 +12,7 @@ In this lab you will see how easy this is and still take advantage of the Groovy
 Simply make all the feature methods in `UserEndpointSpec` and `SoapActionHandlerUnitSpec` pass.  There are more hints available
 within the specs.  Don't forget, `HandlerSpec` should also still completely pass.
 
-This lab covers:
+## This lab covers
 
 * Refactor a Chain into it's own class
 * Refactor a repeating handler pattern into a handler shortcut
