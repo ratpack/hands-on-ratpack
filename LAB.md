@@ -1,12 +1,17 @@
 # Lab 01 - Handler lab
 
-Handlers are the fundamental component of any Ratpack application.
-By the end of this lab you will be a handler ninja!
+Handlers are the fundamental component of any Ratpack application.  All request processing is done by composing a chain 
+of handlers.  Unlike the routing table model you’re probably more used to.
 
-Simply make all the feature methods in `HandlersSpec` pass by adding the right handlers to `Ratpack.groovy`.
+When a request comes in, a "Context" is created which represents the current state.
+The context gives access to the request, the response and some other things we’ll see in future labs.
+The context is passed to the handler chain and each handler in the chain is asked to respond until one does.  A handler 
+can respond, do something and pass control to the next handler or insert new handlers.
+
+In this lab simply make all the feature methods in `HandlersSpec` pass by adding the right handlers to `Ratpack.groovy`.
 Try to make each feature method pass in order and refactor as you go.
 
-This lab covers:
+## This lab covers
 
 * Simple routing
 * Routing by HTTP method
@@ -14,6 +19,7 @@ This lab covers:
 * Grouping handlers with the same prefix
 * Routing by regular expression
 * Using path tokens
+* Static assets
 
 ## Sign Posts
 `ratpack.handling.Chain`

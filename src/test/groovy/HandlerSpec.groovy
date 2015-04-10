@@ -15,7 +15,7 @@ class HandlerSpec extends Specification {
   // ApplicationUnderTest includes a TestHttpClient that we can use for sending requests to our application.
   @Delegate TestHttpClient testClient = appUnderTest.httpClient
 
-  def "01 - can send a requests with different Http methods to the root path"() {
+  def "01 - can send a request to the root path"() {
     when: "a GET request is sent with no path"
     testClient.get() // we don't have to assign the ReceivedResponse returned as TestHttpClient will keep track of this for us
 
