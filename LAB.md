@@ -16,7 +16,7 @@ Guice.
 
 This time the hints are in the TODO within `Ratpack.groovy`
 
-This lab covers:
+## This lab covers
 
 * Binding objects with Google Guice
 
