@@ -1,9 +1,10 @@
 buildscript {
   repositories {
+    maven { url "http://oss.jfrog.org/artifactory/repo" }
     jcenter()
   }
   dependencies {
-    classpath "io.ratpack:ratpack-gradle:0.9.18"
+    classpath "io.ratpack:ratpack-gradle:0.9.19-SNAPSHOT"
     classpath "com.github.jengelman.gradle.plugins:shadow:1.2.2"
   }
 }
@@ -15,6 +16,7 @@ apply plugin: "eclipse"
 
 repositories {
   jcenter()
+  maven { url "https://oss.jfrog.org/repo" }
 }
 
 dependencies {
