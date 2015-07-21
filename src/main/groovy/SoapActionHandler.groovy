@@ -1,11 +1,13 @@
 import ratpack.groovy.Groovy
 import ratpack.groovy.handling.GroovyContext
-import ratpack.http.internal.HeaderHandler
+import ratpack.handling.internal.WhenHandler
 
-class SoapActionHandler extends HeaderHandler {
+class SoapActionHandler extends WhenHandler {
 
-  SoapActionHandler(String soapAction, @DelegatesTo(value = GroovyContext.class, strategy = Closure.DELEGATE_FIRST) Closure<?> handler) {
-    super("SOAPAction", soapAction, Groovy.groovyHandler(handler))
-  }
+    SoapActionHandler(String soapAction,
+                      @DelegatesTo(value = GroovyContext.class, strategy = Closure.DELEGATE_FIRST) Closure<?> handler) {
+
+        super({ context -> context.request.headers.SOAPAction == soapAction }, Groovy.groovyHandler(handler))
+    }
 
 }
