@@ -5,16 +5,18 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 class BookSpec extends Specification {
-  @Shared ApplicationUnderTest appUnderTest = new GroovyRatpackMainApplicationUnderTest()
-  @Delegate TestHttpClient testClient = appUnderTest.httpClient
+    @Shared
+    ApplicationUnderTest appUnderTest = new GroovyRatpackMainApplicationUnderTest()
+    @Delegate
+    TestHttpClient testClient = appUnderTest.httpClient
 
-  def "01 - can get a book's title"() {
-    expect:
-    getText("book/1/title") == "Ratpack Web Framework"
-  }
+    def "01 - can get a book's title"() {
+        expect:
+        getText("book/1/title") == "Ratpack Web Framework"
+    }
 
-  def "02 - can get a book's author"() {
-    expect:
-    getText("book/1/author") == "Dan Woods"
-  }
+    def "02 - can get a book's author"() {
+        expect:
+        getText("book/1/author") == "Dan Woods"
+    }
 }
