@@ -7,7 +7,7 @@ ratpack {
         * TODO bind DefaultBookRepository as the implementation of BookRepository
         *
         * Take a look at:
-        * `ratpack.groovy.guice.GroovyBindingsSpec#bind(publicType, implType)`
+        * `ratpack.guice.BindingsSpec#bind(publicType, implType)`
         */
     }
 

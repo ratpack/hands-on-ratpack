@@ -1,6 +1,6 @@
 # Lab 04 - Google Guice (part 1) lab
 
-Ratpack provides integration with Google Guice for dependancy injection.  We'll see other DI integrations in future labs
+Ratpack provides integration with Google Guice for dependency injection.  We'll see other DI integrations in future labs
 but the Guice one is of particular importance as additional Ratpack functionality is packaged up as Guice modules.
 
 One key concept to understand about the Guice integration is that it provides a Guice backed `Registry`.  This means that
