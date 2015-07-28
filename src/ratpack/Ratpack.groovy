@@ -15,9 +15,14 @@ ratpack {
                 response.send "${get(PathBinding).boundTo} - getFriends"
             }))
 
-            // Here we are using a Groovy extension module to add `soapAction` to `GroovyChain`
-            soapAction("getTweets") {
+            // Here we have a static factory method that's making use of `ratpack.handling.Handlers.when`
+            all(MyHandlers.soapAction("getTweets", {
                 response.send "${get(PathBinding).boundTo} - getTweets"
+            }))
+
+            // Here we are using a Groovy extension module to add `soapAction` to `GroovyChain`
+            soapAction("getFavourites") {
+                response.send "${get(PathBinding).boundTo} - getFavourites"
             }
         }
 
