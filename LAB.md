@@ -1,4 +1,4 @@
-# Lab 03 - Context lab
+# Lab 03 - The Context
 
 The `Context` is at the core of request processing in Ratpack applications.
 
@@ -26,4 +26,4 @@ This time the hints are in the TODO within `Ratpack.groovy`
 
 `ratpack.handling.Context`
 
-`ratpack.registry.Registries`
+`ratpack.registry.Registry`

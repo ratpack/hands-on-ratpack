@@ -7,13 +7,15 @@ ratpack {
         *
         * Take a look at:
         * `ratpack.groovy.handling.GroovyChain#register(registry)`
-        * `ratpack.registry.Registries#just(object)`
+        * `ratpack.registry.Registry#single(object)`
         */
 
         prefix("book/:isbn") {
             /*
             * TODO add your new common handler here
             *
+            * Remember to make the resulting available in the context
+             *
             * Take a look at:
             * `ratpack.handling.Context#next(registry)`
             */
