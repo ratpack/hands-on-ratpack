@@ -26,7 +26,13 @@ class HandlerSpec extends Specification {
 
         /*
         Hint:
-        Take a look at `ratpack.groovy.handling.GroovyChain#handler(handler)`
+        The `handlers` closure in `Ratpack.groovy` delegates to `ratpack.groovy.handling.GroovyChain`.  It's this class
+        and its Builder pattern that will allow us to fluently compose our handler chain.
+
+        Try adding an `all` handler to make this test pass.
+
+        Take a look at `ratpack.handling.Chain` class level Javadoc
+        and `ratpack.groovy.handling.GroovyChain#all(handler)`
         */
     }
 
@@ -39,8 +45,12 @@ class HandlerSpec extends Specification {
 
         /*
         Hint:
+        `GroovyChain` has various methods for adding handlers based on a HTTP method binding, some of which allow you to
+        specify a path binding too.
+
         Take a look at `ratpack.groovy.handling.GroovyChain#get(path, handler)`
-        A plain `Handler` with no path will match on everything
+
+        If you used `all` in the previous test, don't forget it will match on "all" requests.  Handler order is important!
         */
     }
 
@@ -54,7 +64,7 @@ class HandlerSpec extends Specification {
 
         /*
         Hint:
-        Take a look at `ratpack.handling.Chain` class level Javadoc
+        Take a look at the "Path Binding" section in `ratpack.handling.Chain` class level Javadoc
         and `ratpack.handling.Context#getPathTokens()`
         and `ratpack.path.PathBinding#getTokens()`
         */
@@ -80,6 +90,7 @@ class HandlerSpec extends Specification {
         /*
         Hint:
         If you haven't already, you might want to start refactoring
+
         Take a look at `ratpack.handling.Chain#prefix(prefix, action)`
         and `ratpack.handling.Context#getAllPathTokens()`
         and `ratpack.path.PathBinding#getAllTokens()`
@@ -108,7 +119,8 @@ class HandlerSpec extends Specification {
         /*
         Hint:
         There is already a file available to serve src/ratpack/public/js/app.js
-        Take a look at `ratpack.handling.Chain#assets(path, indexFiles)`
+
+        Take a look at `ratpack.handling.Chain#files(config)`
         */
     }
 
@@ -162,8 +174,8 @@ class HandlerSpec extends Specification {
 
         where:
         requestPath | expectedLogEntry
-        "user"      | '"GET /user HTTP/1.1" 200'
-        "user/1"    | '"GET /user/1 HTTP/1.1" 200'
+        "user"      | 'GET /user'
+        "user/1"    | 'GET /user/1'
 
         /*
         Hint:
@@ -187,7 +199,10 @@ class HandlerSpec extends Specification {
 
         /*
         Hint:
-        You're all out of hints :)
+        The SOAPAction is sent as a HTTP header, try creating a handler that checks for that header
+
+        Take a look at using `ratpack.groovy.handling.GroovyChain#when(test, handlers)`
+        or `ratpack.groovy.handling.GroovyChain#onlyIf(test, handler)`
         */
     }
 }
