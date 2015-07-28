@@ -1,4 +1,4 @@
-# Lab 03 - Context lab
+# Lab 03 - The Context
 
 The `Context` is at the core of request processing in Ratpack applications.
 
