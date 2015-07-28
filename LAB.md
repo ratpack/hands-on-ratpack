@@ -26,4 +26,4 @@ This time the hints are in the TODO within `Ratpack.groovy`
 
 `ratpack.handling.Context`
 
-`ratpack.registry.Registries`
+`ratpack.registry.Registry`
