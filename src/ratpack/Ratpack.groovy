@@ -1,6 +1,6 @@
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import ratpack.handling.RequestId
+import ratpack.handling.RequestLog
 import ratpack.path.PathBinding
 
 import static ratpack.groovy.Groovy.ratpack
@@ -9,7 +9,7 @@ final Logger log = LoggerFactory.getLogger(Ratpack)
 
 ratpack {
     handlers {
-        all(RequestId.bindAndLog()) // log all requests
+        all(RequestLog.log()) // log all requests
 
         prefix("user") {
             path("::f.*") { // starts with 'f' then 0 or more characters
