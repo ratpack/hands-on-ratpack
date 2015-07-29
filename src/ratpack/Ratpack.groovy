@@ -1,11 +1,11 @@
-import ratpack.handling.RequestId
+import ratpack.handling.RequestLog
 import ratpack.path.PathBinding
 
 import static ratpack.groovy.Groovy.ratpack
 
 ratpack {
     handlers {
-        all(RequestId.bindAndLog()) // log all requests
+        all(RequestLog.log()) // log all requests
 
         prefix("user", new UserEndpoint())
 
