@@ -5,7 +5,7 @@ import ratpack.path.PathBinding
 
 import static ratpack.groovy.Groovy.ratpack
 
-final Logger log = LoggerFactory.getLogger(Ratpack);
+final Logger log = LoggerFactory.getLogger(Ratpack)
 
 ratpack {
     handlers {
