@@ -5,7 +5,7 @@ import ratpack.path.PathBinding
 
 import static ratpack.groovy.Groovy.ratpack
 
-final Logger log = LoggerFactory.getLogger(Ratpack);
+final Logger log = LoggerFactory.getLogger(Ratpack)
 
 ratpack {
     handlers {
@@ -49,7 +49,6 @@ ratpack {
         }
 
         prefix("api/ws") {
-            // if the prefix is removed, the tests still pass.  Must be careful that handlers further up the chain don't also match
             when { request.headers.SOAPAction == "getTweets" } {
                 all {
                     response.send "${get(PathBinding).boundTo} - getTweets"
