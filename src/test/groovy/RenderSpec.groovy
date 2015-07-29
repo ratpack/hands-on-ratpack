@@ -61,8 +61,8 @@ class RenderSpec extends Specification {
         Take a look at `ratpack.groovy.render.GroovyRendererSupport` to create your own renderer for `Book`
         Renderers are looked up in the Context by type, you will need to make your new renderer available.
 
-        Ratpack's Jackson module (`ratpack.jackson.Jackson`) has a support for rendering as JSON
-        To use this in your renderer you will need to add a new build dependency on `ratpack-jackson`
+        Ratpack's Jackson module (`ratpack.jackson.guice.JacksonModule`) has a support for rendering as JSON
+        To use this in your renderer you will need to add a new build dependency on `ratpack-jackson-guice`
         */
     }
 
