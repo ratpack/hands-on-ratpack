@@ -6,7 +6,7 @@ import static ratpack.groovy.Groovy.ratpack
 final Logger log = LoggerFactory.getLogger(Ratpack)
 
 ratpack {
-    handlers {
+  handlers {
 
-    }
+  }
 }
