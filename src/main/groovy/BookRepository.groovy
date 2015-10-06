@@ -1,3 +1,3 @@
 interface BookRepository {
-    Book getBook(String isbn)
+  Book getBook(String isbn)
 }
