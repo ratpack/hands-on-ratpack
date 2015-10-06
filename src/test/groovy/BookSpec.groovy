@@ -12,7 +12,7 @@ class BookSpec extends Specification {
 
   def "01 - can get a book's title"() {
     expect:
-    getText("book/1/title") == "Ratpack Web Framework"
+    getText("book/1/title") == "Learning Ratpack"
   }
 
   def "02 - can get a book's author"() {
