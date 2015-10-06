@@ -1,8 +1,8 @@
 @Singleton
 class DefaultBookService implements BookService {
-    @Override
-    Book getBook(String isbn) {
-        return new Book(isbn: isbn, quantity: 10, price: 15.99, title: "Ratpack Web Framework",
-            author: "Dan Woods", publisher: "O'Reilly")
-    }
+  @Override
+  Book getBook(String isbn) {
+    return new Book(isbn: isbn, quantity: 10, price: 49.99, title: "Learning Ratpack",
+      author: "Dan Woods", publisher: "O'Reilly")
+  }
 }
