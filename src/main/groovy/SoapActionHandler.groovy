@@ -5,21 +5,21 @@ import ratpack.handling.Handler
 
 class SoapActionHandler extends GroovyHandler {
 
-    String soapAction
-    Handler handler
+  String soapAction
+  Handler handler
 
-    SoapActionHandler(String soapAction,
-                      @DelegatesTo(value = GroovyContext.class, strategy = Closure.DELEGATE_FIRST) Closure<?> handler) {
-        this.soapAction = soapAction
-        this.handler = Groovy.groovyHandler(handler)
-    }
+  SoapActionHandler(String soapAction,
+          @DelegatesTo(value = GroovyContext.class, strategy = Closure.DELEGATE_FIRST) Closure<?> handler) {
+    this.soapAction = soapAction
+    this.handler = Groovy.groovyHandler(handler)
+  }
 
-    @Override
-    protected void handle(GroovyContext context) {
-        if (context.request.headers.SOAPAction == soapAction) {
-            context.insert(this.handler)
-        } else {
-            context.next()
-        }
+  @Override
+  protected void handle(GroovyContext context) {
+    if (context.request.headers.SOAPAction == soapAction) {
+      context.insert(this.handler)
+    } else {
+      context.next()
     }
+  }
 }
