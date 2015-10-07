@@ -71,7 +71,7 @@ ratpack {
     }
 
     all {
-      response.send "Hello Greach!"
+      response.send "Hello Devoxx!"
     }
   }
 }
