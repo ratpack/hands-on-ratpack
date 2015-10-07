@@ -13,7 +13,7 @@ class RenderSpec extends Specification {
 
   def "01 - can render a String"() {
     expect:
-    getText() == "Hello Greach!"
+    getText() == "Hello Devoxx!"
 
     /*
     Hint:
@@ -24,7 +24,7 @@ class RenderSpec extends Specification {
 
   def "02 - can render a Groovy Markup Template"() {
     expect:
-    getText("welcome") == "<!DOCTYPE html><html><body><p>Hello Greach!</p></body></html>"
+    getText("welcome") == "<!DOCTYPE html><html><body><p>Hello Devoxx!</p></body></html>"
 
     /*
     Hint:
