@@ -33,7 +33,7 @@ ratpack {
     files { dir "pages" indexFiles "index.html" }
 
     all {
-      response.send "Hello Greach!"
+      response.send "Hello Devoxx!"
     }
 
   }
